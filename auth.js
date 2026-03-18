@@ -1,18 +1,23 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyBAARdjzSUNEjs9_fSiDtnXu9LzOnVpLzQ",
-  authDomain: "controle-vigilantes.firebaseapp.com",
-  projectId: "controle-vigilantes"
-};
+firebase.auth().signInWithEmailAndPassword(email, senha)
+  .then(async (userCredential) => {
 
-firebase.initializeApp(firebaseConfig);
+    const user = userCredential.user;
 
-function login() {
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
+    const snapshot = await firebase.firestore()
+      .collection("usuarios")
+      .where("email", "==", user.email)
+      .get();
 
-  firebase.auth().signInWithEmailAndPassword(email, senha)
-    .then(() => {
+    if (snapshot.empty) {
+      alert("Usuário não autorizado");
+      return;
+    }
+
+    const dados = snapshot.docs[0].data();
+
+    if (dados.tipo === "admin") {
+      window.location.href = "admin.html";
+    } else {
       window.location.href = "dashboard.html";
-    })
-    .catch(e => alert("Erro: " + e.message));
-}
+    }
+  });
