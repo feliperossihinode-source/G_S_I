@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin</title>
+</head>
+<body>
+
+<h2>Criar Usuário</h2>
+
+<input id="novoEmail" placeholder="Email">
+<select id="tipo">
+  <option value="user">Usuário</option>
+  <option value="admin">Admin</option>
+</select>
+
+<button onclick="criarUsuario()">Criar</button>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+<script src="admin.js"></script>
+
+</body>
+</html>
